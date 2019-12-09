@@ -32,8 +32,8 @@ Table of Contents
    * [Global bashrc](#global-bashrc)
    * [Documentation](#documentation)
    * [Support](#support)
-   
-   
+
+
 Table of Contents created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 
 
@@ -48,7 +48,7 @@ https://github.com/pnlbwh/pnlNipype, 2019, DOI: 10.5281/zenodo.3258854
 # Introduction
 
 *pnlNipype* is a Python-based framework for processing anatomical (T1, T2) and diffusion weighted images.
-It comprises some of the [PNL](http://pnl.bwh.harvard.edu)'s neuroimaging pipelines. 
+It comprises some of the [PNL](http://pnl.bwh.harvard.edu)'s neuroimaging pipelines.
 A pipeline is a directed acyclic graph (DAG) of dependencies.
 The following diagram depicts functionality of the NIFTI pipeline, where
 each node represents an output, and the arrows represent dependencies:
@@ -62,7 +62,7 @@ each node represents an output, and the arrows represent dependencies:
 * dcm2niix
 * ANTs == 2.3.0
 * UKFTractography == 1.0
-* freesurfer >= 5.0.3 
+* freesurfer >= 5.0.3
 * FSL >= 5.0.3
 * python >= 3
 
@@ -74,13 +74,13 @@ each node represents an output, and the arrows represent dependencies:
 ### i. With pnlpipe
 
 *pnlNipype* depends on the above software modules. It is recommended to follow *pnlpipe* installation [instruction](https://github.com/pnlbwh/pnlpipe#installation).
-Most of the requisite software modules will be installed with *pnlpipe*. In addition, you should also learn 
+Most of the requisite software modules will be installed with *pnlpipe*. In addition, you should also learn
 how to [configure your environment](https://github.com/pnlbwh/pnlpipe#1-configure-your-environment) and [source individual software module](https://github.com/pnlbwh/pnlpipe#2-source-individual-software-module).
 
 ### ii. Independently
 
-Installing *pnlNipype* independently should require you to install each of the dependencies separately. 
-This way, you can have more control upon the requisite software modules. The independent installation is for users with 
+Installing *pnlNipype* independently should require you to install each of the dependencies separately.
+This way, you can have more control upon the requisite software modules. The independent installation is for users with
 a little more programming knowledge.
 
 Install the following software (ignore the one(s) you have already):
@@ -89,7 +89,7 @@ Install the following software (ignore the one(s) you have already):
 * FreeSurfer>=5.0.3
 * FSL>=5.0.11
 
-    
+
 #### Check system architecture
 
     uname -a # check if 32 or 64 bit
@@ -97,7 +97,7 @@ Install the following software (ignore the one(s) you have already):
 #### Python 3
 
 Download [Miniconda Python 3.6 bash installer](https://conda.io/miniconda.html) (32/64-bit based on your environment):
-    
+
     sh Miniconda3-latest-Linux-x86_64.sh -b # -b flag is for license agreement
 
 Activate the conda environment:
@@ -109,41 +109,41 @@ Activate the conda environment:
 Follow the [instruction](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation) to download and install FSL.
 
 #### FreeSurfer
-    
+
 Follow the [instruction](https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall) to download and install FreeSurfer >= 5.0.3
 After installation, you can check FreeSurfer version by typing `freesurfer` on the terminal.
 
 #### pnlpipe software
 
 The rest of the software can be installed with *pnlpipe* infrastructure:
-    
+
     git clone --recurse-submodules https://github.com/pnlbwh/pnlNipype.git && cd pnlNipype
-    
+
     # install the python packages required to run pnlNipype
-    pip install -r requirements.txt    
-    
+    pip install -r requirements.txt
+
     # define PYTHONPATH so following software installation scripts are found
     export PYTHONPATH=/abs/directory/of/pnlpipe_software/
-    
+
     # this is where software modules are installed
     export PNLPIPE_SOFT=/directory/for/software/
-    
+
     # https://github.com/pnlbwh/ukftractography
     cmd/install.py UKFTractography
-    
+
     # https://github.com/rordenlab/dcm2niix
     cmd/install.py dcm2niix
-    
+
     # https://github.com/ANTsX/ANTs
     cmd/install.py ANTs
-    
+
     # https://github.com/demianw/tract_querier
     cmd/install.py tract_querier
-    
+
     # https://github.com/pnlbwh
     cmd/install.py trainingDataT1AHCC
     cmd/install.py trainingDataT2Masks
-        
+
     # finally, install whitematteanalysis according to https://github.com/pnlbwh/pnlpipe#4-whitematteranalysis-package
 
 
@@ -155,10 +155,10 @@ You may also build the following from source:
 * ANTs
 
 You can build ANTs from [source](https://github.com/ANTsX/ANTs). Additionally, you should define [ANTSPATH](https://github.com/ANTsX/ANTs/wiki/Compiling-ANTs-on-Linux-and-Mac-OS#set-path-and-antspath)
-    
+
 * dcm2niix
 
-dcm2niix executable will create NIFTI file from DICOM. The pipeline uses a reliable converter dcm2niix. 
+dcm2niix executable will create NIFTI file from DICOM. The pipeline uses a reliable converter dcm2niix.
 Building of dcm2niix is very straightforward and reliable. Follow [this](https://github.com/rordenlab/dcm2niix#build-command-line-version-with-cmake-linux-macos-windows) instruction to build dcm2niix.
 
 * UKFTractography
@@ -172,26 +172,27 @@ Follow this [instruction](https://github.com/pnlbwh/ukftractography/blob/master/
 If you have already configured your environment following *pnlpipe*, you may pass the instruction below:
 
 
-    source ~/miniconda3/bin/activate                 # should introduce '(base)' in front of each line
-    export FSLDIR=~/fsl/                             # setup fsl environment
+    source /absolute/path/to/miniconda3/bin/activate # should introduce '(base)' in front of each line
+    export FSLDIR=/path/to/fsl/                             # setup fsl environment
     source $FSLDIR/etc/fslconf/fsl.sh
     export PATH=$PATH:$FSLDIR/bin
-    export FREESURFER_HOME=~/freesurfer              # you may specify another directory where FreeSurfer is installed
+    export FREESURFER_HOME=/path/to/freesurfer              # you may specify another directory where FreeSurfer is installed
     source $FREESURFER_HOME/SetUpFreeSurfer.sh
-    export ANTSPATH=/path/to/ANTs/bin/
-    export PATH=$ANTSPATH:ANTs/Scripts:$PATH         # define ANTSPATH and export ANTs scripts in your path
-    export PATH=~/dcm2niix/build/bin
+    export ANTSPATH=/path/to/ANTs-build/bin/
+    PATH=${ANTSPATH}:${PATH}
+    export PATH=/path/to/ANTs/Scripts:$PATH         # define ANTSPATH and export ANTs scripts in your path
+    export PATH=/path/to/dcm2niix/build/bin:$PATH
     export PY2BIN=/absolute/path/to/miniconda2/bin   # for whitematteranalysis package
 
-    
-    
+
+
 *(If you would like, you may edit your [bashrc](#global-bashrc) to have environment automatically setup
 every time you open a new terminal)*
 
 ## 3. Temporary directory
 
-Both *pnlpipe* and *pnlNipype* have centralized control over various temporary directories created down the pipeline. 
-The temporary directories can be large, and may possibly clog the default `/tmp/` directory. You may define custom 
+Both *pnlpipe* and *pnlNipype* have centralized control over various temporary directories created down the pipeline.
+The temporary directories can be large, and may possibly clog the default `/tmp/` directory. You may define custom
 temporary directory with environment variable `PNLPIPE_TMPDIR`:
 
     mkdir ~/tmp/
@@ -202,7 +203,7 @@ temporary directory with environment variable `PNLPIPE_TMPDIR`:
 ### i. Preliminary
 
 Upon successful installation, you should be able to see help message of each script in the pipeline:
-    
+
     cd lib
     scripts/atlas.py --help
     scripts/fs2dwi.py --help
@@ -212,12 +213,12 @@ Upon successful installation, you should be able to see help message of each scr
 ### ii. Detailed
 
 This section will be elaborated in future.
-    
+
 
 
 # Multiprocessing
 
-Multi-processing is an advanced feature of *pnlNipype*. The following scripts are able to utilize 
+Multi-processing is an advanced feature of *pnlNipype*. The following scripts are able to utilize
 python multiprocessing capability:
 
     atlas.py
@@ -225,18 +226,18 @@ python multiprocessing capability:
     pnl_epi.py
     wmql.py
     antsApplyTransformsDWI.py
-     
-     
+
+
 You may specify `N_PROC` parameter in [scripts/util.py](scripts/util.py) for default number of processes to be used across scripts in the pipeline.
 
     N_PROC = '4'
-    
+
 On a Linux machine, you should find the number of processors by the command `lscpu`:
 
-    On-line CPU(s) list:   0-55 
+    On-line CPU(s) list:   0-55
 
-You can specify any number not greater than the On-line CPU(s). However, one caveat is, other applications in your computer 
-may become sluggish or you may run into memory error due to heavier computation in the background. If this is the case, 
+You can specify any number not greater than the On-line CPU(s). However, one caveat is, other applications in your computer
+may become sluggish or you may run into memory error due to heavier computation in the background. If this is the case,
 reduce NCPU (`--nproc`) to less than 4.
 
 
@@ -258,7 +259,7 @@ You can call any of these scripts directly, e.g.
 
 
 It's important to note that usually the scripts are calling other binaries, such
-as those in *ANTS*, *FreeSurfer* and *FSL*. So, make sure you source each of their environments 
+as those in *ANTS*, *FreeSurfer* and *FSL*. So, make sure you source each of their environments
 so individual scripts are able to find them.
 
 This table summarizes the scripts in `pnlNipype/scripts/`:
@@ -290,7 +291,7 @@ This table summarizes the scripts in `pnlNipype/scripts/`:
 
 
 The above executables are available as soft links in `pnlNipype/exec` directory as well:
-    
+
 | Soft link | Target script |
 |---|---|
 | fsl_eddy | ../scripts/fsl_eddy.py |
@@ -311,10 +312,10 @@ The above executables are available as soft links in `pnlNipype/exec` directory 
 
 
 For example, to execute axis alignment script, you can do either of the following:
-    
+
     pnlNipype/exec/nifti_align -h
     pnlNipype/scripts/align.py -h
-    
+
 
 
 # Global bashrc
